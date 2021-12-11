@@ -11,6 +11,10 @@ This is a learning exercise to practice different languages, testing, and source
   /LANGUAGE
 ```
 
+## Tool versioning
+
+ASDF is used to manage versions for tools. [ASDF](https://github.com/asdf-vm/asdf)
+
 ## Contributors
 
 - @rookieone
