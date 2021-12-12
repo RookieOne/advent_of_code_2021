@@ -15,12 +15,12 @@ defmodule AdventOfCode2021.Day4.ReadInput do
           |> String.split(",")
           |> Enum.map(&parse_string_as_int/1)
 
-        boards = read_boards(rest_of_file, [], [])
+        boards = read_boards(rest_of_file, new_board(), [])
 
         # remove empty boards
         boards =
           Enum.reject(boards, fn
-            [] -> true
+            %{rows: []} -> true
             _ -> false
           end)
 
@@ -31,6 +31,10 @@ defmodule AdventOfCode2021.Day4.ReadInput do
 
         {:ok, result}
     end
+  end
+
+  def new_board() do
+    %{rows: [], winner: false}
   end
 
   def parse_string_as_int(number_as_string) do
@@ -45,7 +49,7 @@ defmodule AdventOfCode2021.Day4.ReadInput do
   end
 
   def read_boards(["" | input], current_board, boards) do
-    read_boards(input, [], [current_board | boards])
+    read_boards(input, new_board(), [current_board | boards])
   end
 
   def read_boards([row_as_string | input], current_board, boards) do
@@ -57,7 +61,15 @@ defmodule AdventOfCode2021.Day4.ReadInput do
         _ -> false
       end)
       |> Enum.map(&parse_string_as_int/1)
+      |> Enum.map(fn number ->
+        %{
+          number: number,
+          marked: false
+        }
+      end)
 
-    read_boards(input, [row | current_board], boards)
+    updated_board = Map.put(current_board, :rows, [row | current_board.rows])
+
+    read_boards(input, updated_board, boards)
   end
 end
