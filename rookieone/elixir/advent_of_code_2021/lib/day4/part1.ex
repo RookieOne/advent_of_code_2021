@@ -3,9 +3,7 @@ defmodule AdventOfCode2021.Day4.Part1 do
   Documentation Day 4 Part 1 of Advent of Code
   """
 
-  def solve(%{numbers: _numbers, boards: boards}) do
-    numbers = [0, 12, 3, 7, 13, 10, 16]
-
+  def solve(%{numbers: numbers, boards: boards}) do
     boards = for number <- numbers, reduce: boards do
       boards ->
         if any_winners?(boards) do
@@ -15,11 +13,10 @@ defmodule AdventOfCode2021.Day4.Part1 do
         end
     end
 
-    winning_boards = Enum.filter(boards, & &1.winner == true)
-
-    IO.inspect debug_boards(winning_boards)
-
-    0
+    case Enum.filter(boards, & &1.winner == true) do
+      [winning_board] -> 
+        {:ok, winning_board}
+    end
   end
 
   def any_winners?(boards) do
@@ -28,8 +25,6 @@ defmodule AdventOfCode2021.Day4.Part1 do
 
   def mark_boards(boards, number) do
     for board <- boards do
-      debug_board(board)
-
       marked_board_rows =
         for row <- board.rows do
           for cell <- row do
@@ -41,16 +36,17 @@ defmodule AdventOfCode2021.Day4.Part1 do
           end
         end
 
-      maybe_mark_board_as_winner(marked_board_rows)
+      maybe_mark_board_as_winner(marked_board_rows, number)
     end
   end
 
-  def maybe_mark_board_as_winner(marked_board_rows) do
+  def maybe_mark_board_as_winner(marked_board_rows, number) do
     if any_horizontal_row_marked?(marked_board_rows) ||
          any_vertical_row_marked?(marked_board_rows) do
       %{
         winner: true,
-        rows: marked_board_rows
+        rows: marked_board_rows,
+        score: score_board(marked_board_rows, number)
       }
     else
       %{
@@ -99,5 +95,15 @@ defmodule AdventOfCode2021.Day4.Part1 do
     end
 
     IO.inspect("======= end")
+  end
+
+  def score_board(rows, number) do
+    unmarked_numbers = for row <- rows, cell <- row, !cell.marked do
+      cell.number
+    end
+
+    unmarked_numbers_sum = Enum.sum(unmarked_numbers)
+
+    unmarked_numbers_sum * number
   end
 end

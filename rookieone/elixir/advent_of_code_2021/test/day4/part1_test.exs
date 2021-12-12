@@ -7,8 +7,8 @@ defmodule AdventOfCode2021.Day4.Part1Test do
   test "example should return answer" do
     {:ok, input} = read_file("test/day4/example.txt")
 
-    answer = solve(input)
+    {:ok, answer} = solve(input)
 
-    assert answer == 7
+    assert answer.score == 4512
   end
 end
