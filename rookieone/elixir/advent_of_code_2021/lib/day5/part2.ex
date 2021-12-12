@@ -1,6 +1,6 @@
-defmodule AdventOfCode2021.Day5.Part1 do
+defmodule AdventOfCode2021.Day5.Part2 do
   @moduledoc """
-  Documentation Day 5 Part 1 of Advent of Code
+  Documentation Day 5 Part 2 of Advent of Code
   """
 
   def solve(lines) do
@@ -78,7 +78,35 @@ defmodule AdventOfCode2021.Day5.Part1 do
     end
   end
 
-  def add_line_to_grid(grid, _line, :diagonal) do
+  def add_line_to_grid(grid, line, :diagonal) do
+    line_length = abs(line.start_point.x - line.end_point.x)
+
+    x_direction =
+      if line.start_point.x > line.end_point.x do
+        -1
+      else
+        1
+      end
+
+    y_direction =
+      if line.start_point.y > line.end_point.y do
+        -1
+      else
+        1
+      end
+
+    start_x = line.start_point.x
+    start_y = line.start_point.y
+
+    {_, _, grid} = for _ <- 0..line_length, reduce: {start_x, start_y, grid} do
+      {x, y, grid} ->
+        {x + x_direction, y + y_direction, Map.put(grid, {x, y}, grid[{x, y}] + 1)}
+    end
+
     grid
+  end
+
+  def debug(grid, x, y) do
+    IO.inspect("[#{x}, #{y}] : #{grid[{x, y}]}")
   end
 end
