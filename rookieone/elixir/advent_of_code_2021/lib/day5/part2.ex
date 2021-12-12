@@ -98,10 +98,11 @@ defmodule AdventOfCode2021.Day5.Part2 do
     start_x = line.start_point.x
     start_y = line.start_point.y
 
-    {_, _, grid} = for _ <- 0..line_length, reduce: {start_x, start_y, grid} do
-      {x, y, grid} ->
-        {x + x_direction, y + y_direction, Map.put(grid, {x, y}, grid[{x, y}] + 1)}
-    end
+    {_, _, grid} =
+      for _ <- 0..line_length, reduce: {start_x, start_y, grid} do
+        {x, y, grid} ->
+          {x + x_direction, y + y_direction, Map.put(grid, {x, y}, grid[{x, y}] + 1)}
+      end
 
     grid
   end
