@@ -11,15 +11,16 @@ defmodule AdventOfCode2021.Day1.Part1 do
     total_increases
   end
 
-  def check_previous_depth([depth|depths], nil, total_increases) do
+  def check_previous_depth([depth | depths], nil, total_increases) do
     check_previous_depth(depths, depth, total_increases)
   end
 
-  def check_previous_depth([depth|depths], previous_depth, total_increases) when depth > previous_depth do
+  def check_previous_depth([depth | depths], previous_depth, total_increases)
+      when depth > previous_depth do
     check_previous_depth(depths, depth, total_increases + 1)
   end
 
-  def check_previous_depth([depth|depths], previous_depth, total_increases) do
+  def check_previous_depth([depth | depths], previous_depth, total_increases) do
     check_previous_depth(depths, depth, total_increases)
   end
 end
