@@ -32,7 +32,7 @@ defmodule AdventOfCode2021.Day5.ReadInput do
 
     x = parse_string_as_int(x_as_string)
     y = parse_string_as_int(y_as_string)
-    {x, y}
+    %{x: x, y: y}
   end
 
   def parse_string_as_int(number_as_string) do
