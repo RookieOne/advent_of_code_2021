@@ -12,11 +12,11 @@ defmodule AdventOfCode2021.Day5.Part1Test do
     assert answer == 5
   end
 
-  # test "input should return answer" do
-  #   {:ok, input} = read_file("test/day4/input.txt")
+  test "input should return answer" do
+    {:ok, input} = read_file("test/day5/input.txt")
 
-  #   {:ok, answer} = solve(input)
+    {:ok, answer} = solve(input)
 
-  #   assert answer.score == 11_536
-  # end
+    assert answer == 7_473
+  end
 end
