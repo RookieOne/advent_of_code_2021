@@ -4,9 +4,10 @@ defmodule AdventOfCode2021.Day1.Part2 do
   """
 
   def measure_depth(input) do
-    result = for depth <- input, reduce: %{ count: 0, depth_windows: [], current_depth_window: [] } do
-      acc -> depth_step(depth, acc.count, acc.depth_windows, acc.current_depth_window)
-    end
+    result =
+      for depth <- input, reduce: %{count: 0, depth_windows: [], current_depth_window: []} do
+        acc -> depth_step(depth, acc.count, acc.depth_windows, acc.current_depth_window)
+      end
 
     # handle last depth
     result = depth_step(nil, result.count, result.depth_windows, result.current_depth_window)
@@ -14,7 +15,12 @@ defmodule AdventOfCode2021.Day1.Part2 do
     result.count
   end
 
-  def depth_step(depth, _count, _depth_windows = [], _current_depth_window = [depth3, depth2, depth1]) do
+  def depth_step(
+        depth,
+        _count,
+        _depth_windows = [],
+        _current_depth_window = [depth3, depth2, depth1]
+      ) do
     sum = depth1 + depth2 + depth3
 
     %{
@@ -24,17 +30,23 @@ defmodule AdventOfCode2021.Day1.Part2 do
     }
   end
 
-  def depth_step(depth, count, depth_windows = [sum_from_last_depth_window | _tail], _current_depth_window = [depth3, depth2, depth1]) do
+  def depth_step(
+        depth,
+        count,
+        depth_windows = [sum_from_last_depth_window | _tail],
+        _current_depth_window = [depth3, depth2, depth1]
+      ) do
     sum = depth1 + depth2 + depth3
 
-    new_count = if (sum_from_last_depth_window < sum) do
-      count + 1
-    else
-      count
-    end
+    new_count =
+      if sum_from_last_depth_window < sum do
+        count + 1
+      else
+        count
+      end
 
     %{
-      depth_windows: [sum| depth_windows],
+      depth_windows: [sum | depth_windows],
       count: new_count,
       current_depth_window: [depth, depth3, depth2]
     }
