@@ -1,52 +1,58 @@
-defmodule AdventOfCode2021.Day4.Part1 do
+defmodule AdventOfCode2021.Day4.Part2 do
   @moduledoc """
-  Documentation Day 4 Part 1 of Advent of Code
+  Documentation Day 4 Part 2 of Advent of Code
   """
 
   def solve(%{numbers: numbers, boards: boards}) do
     boards =
-      for number <- numbers, reduce: boards do
+      for {number, index} <- Enum.with_index(numbers), reduce: boards do
         boards ->
-          if any_winners?(boards) do
-            boards
-          else
-            mark_boards(boards, number)
-          end
+          mark_boards(boards, number, index)
       end
 
-    case Enum.filter(boards, &(&1.winner == true)) do
-      [winning_board] ->
-        {:ok, winning_board}
+    [last_to_win_board | _boards] =
+      boards
+      |> Enum.sort_by(& &1.winning_turn)
+      |> Enum.reverse()
+
+    {:ok, last_to_win_board}
+  end
+
+  def found_last_winner?(boards) do
+    case Enum.group_by(boards, &(&1.winner == true), & &1.winner) do
+      %{false => [_board]} -> true
+      _ -> false
     end
   end
 
-  def any_winners?(boards) do
-    Enum.any?(boards, &(&1.winner == true))
-  end
-
-  def mark_boards(boards, number) do
+  def mark_boards(boards, number, index) do
     for board <- boards do
-      marked_board_rows =
-        for row <- board.rows do
-          for cell <- row do
-            if cell.number == number do
-              Map.put(cell, :marked, true)
-            else
-              cell
+      if board.winner do
+        board
+      else
+        marked_board_rows =
+          for row <- board.rows do
+            for cell <- row do
+              if cell.number == number do
+                Map.put(cell, :marked, true)
+              else
+                cell
+              end
             end
           end
-        end
 
-      maybe_mark_board_as_winner(marked_board_rows, number)
+        maybe_mark_board_as_winner(marked_board_rows, number, index)
+      end
     end
   end
 
-  def maybe_mark_board_as_winner(marked_board_rows, number) do
+  def maybe_mark_board_as_winner(marked_board_rows, number, index) do
     if any_horizontal_row_marked?(marked_board_rows) ||
          any_vertical_row_marked?(marked_board_rows) do
       %{
         winner: true,
         rows: marked_board_rows,
+        winning_turn: index,
         score: score_board(marked_board_rows, number)
       }
     else
