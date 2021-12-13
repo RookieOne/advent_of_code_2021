@@ -8,14 +8,14 @@ defmodule AdventOfCode2021.Day7.ReadInput do
   def read_file(path) do
     case File.read(path) do
       {:ok, contents} ->
-        fish_timers =
+        numbers =
           contents
           |> String.split("\n")
           |> hd()
           |> String.split(",")
           |> Enum.map(&parse_string_as_int/1)
 
-        {:ok, fish_timers}
+        {:ok, numbers}
     end
   end
 
