@@ -24,7 +24,7 @@ describe("Day 1", () => {
             assert.equal(answer, 7)
         })
         it("Return the answer from the input", () => {
-            const input = readPuzzleInput("./src/day1/puzzle_reports.txt")
+            const input = readPuzzleInput("./day_1/puzzle_reports.txt")
 
             const answer = groupIncrease(input)
 
