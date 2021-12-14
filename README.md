@@ -19,3 +19,5 @@ ASDF is used to manage versions for tools. [ASDF](https://github.com/asdf-vm/asd
 
 - @rookieone
 - @kokopuffz
+- @pwkurth
+
