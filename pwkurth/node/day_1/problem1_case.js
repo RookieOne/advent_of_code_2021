@@ -21,9 +21,7 @@ describe("Day 1", () => {
             ]
 
             const answer = countGreater(input)
-
             assert.equal(answer, 7)
-        
         })
         it("Return the answer from the input", () => {
             const input = readPuzzleInput("./src/day1/puzzle_reports.txt")
@@ -34,7 +32,7 @@ describe("Day 1", () => {
         })
         describe("Day 1 - Part 2", () => {
             describe("Problem 1 - Part 2", () => {
-                it.only("Should be 5", () =>{
+                it("Should be 5", () => {
                     const input = [
                         199,
                         200,
@@ -56,4 +54,3 @@ describe("Day 1", () => {
     })
 })
 
-// Testtt//
