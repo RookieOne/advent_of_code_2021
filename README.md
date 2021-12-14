@@ -37,6 +37,12 @@ ASDF is used to manage versions for tools. [ASDF](https://github.com/asdf-vm/asd
 > git push origin BRANCH_NAME
 ```
 
+To find current branch you can use
+
+```
+> git branch --show-current 
+```
+
 - Create pull request on GitHub
 
 ## Contributors
