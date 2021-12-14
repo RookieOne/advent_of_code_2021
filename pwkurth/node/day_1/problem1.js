@@ -29,7 +29,6 @@ export const readPuzzleInput = filepath => {
     const input = fs.readFileSync(filepath).toString().split("\n")
     const mapped = input.map(x => parseInt(x));
     return mapped
-
 }
 
 exports.countGreater = countGreater
