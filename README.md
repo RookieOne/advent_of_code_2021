@@ -45,6 +45,12 @@ To find current branch you can use
 
 - Create pull request on GitHub
 
+- Get back to main branch
+
+```
+> git checkout main
+```
+
 ## Contributors
 
 - @rookieone
