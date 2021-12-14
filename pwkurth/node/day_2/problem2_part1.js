@@ -3,7 +3,6 @@ function horizontalDepth(input) {
     let horizontal_position = 0
     let increase_depth_position = 0
     let decrease_depth_position = 0
-    let aim = 0
 
     for (var i = 0; i < input.length; i++) {
         if (input[i] === "forward ") {
