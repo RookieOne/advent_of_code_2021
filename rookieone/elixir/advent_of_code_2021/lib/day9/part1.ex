@@ -30,9 +30,10 @@ defmodule AdventOfCode2021.Day9.Part1 do
           end
       end
 
-    risk_level = for point <- low_points, reduce: 0 do
-      sum -> sum = sum + point + 1
-    end
+    risk_level =
+      for point <- low_points, reduce: 0 do
+        sum -> sum = sum + point + 1
+      end
 
     {:ok, risk_level}
   end
