@@ -17,5 +17,4 @@ class Day1Problem1
     end
 
     total_increases
-
 end
