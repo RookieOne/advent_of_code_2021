@@ -6,7 +6,9 @@ function powerConsumption(input) {
     let epislon_rate = []
 
     input.forEach(element => {
-        console.log(element)
+
+        console.log(`Length of our element: ${element.length}`)
+        console.log(`Our element: ${element}`)
         if (element[1].startsWith("1")) {
 
             bit_1++
