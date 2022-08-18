@@ -1,6 +1,6 @@
 defmodule AdventOfCode2021.Day11.ReadInput do
   @moduledoc """
-  Read file for Day 10 of Advent of Code
+  Read file for Day 11 of Advent of Code
 
   11111
   19991
